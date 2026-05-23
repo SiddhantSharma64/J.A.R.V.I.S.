@@ -1,0 +1,506 @@
+/* J.A.R.V.I.S. Sci-Fi Holographic Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Outfit:wght@300;400;600&display=swap');
+
+:root {
+  --primary-neon: #00f0ff;
+  --primary-glow: rgba(0, 240, 255, 0.4);
+  --accent-neon: #0045ff;
+  --accent-glow: rgba(0, 69, 255, 0.4);
+  --success-neon: #00ffcc;
+  --danger-neon: #ff3366;
+  --danger-glow: rgba(255, 51, 102, 0.4);
+  --bg-dark: #00040a;
+  --panel-glass: rgba(0, 10, 25, 0.75);
+  --border-glass: rgba(0, 240, 255, 0.25);
+  --font-hologram: 'Share Tech Mono', monospace;
+  --font-hud: 'Orbitron', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: #e0f0ff;
+  font-family: var(--font-body);
+  overflow: hidden;
+  height: 100vh;
+  margin: 0;
+  position: relative;
+}
+
+/* --- Animated Futuristic Grid & Scanlines --- */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: grid-scroll 80s linear infinite;
+  z-index: -2;
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+@keyframes grid-scroll {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-50%, -50%); }
+}
+
+/* --- HUD Screen Elements (Futuristic Corners) --- */
+.hud-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0, 240, 255, 0.08);
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hud-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--primary-neon);
+  border-style: solid;
+  pointer-events: none;
+}
+.hud-corner.top-left { top: 15px; left: 15px; border-width: 2px 0 0 2px; }
+.hud-corner.top-right { top: 15px; right: 15px; border-width: 2px 2px 0 0; }
+.hud-corner.bottom-left { bottom: 15px; left: 15px; border-width: 0 0 2px 2px; }
+.hud-corner.bottom-right { bottom: 15px; right: 15px; border-width: 0 2px 2px 0; }
+
+.hud-widget {
+  position: absolute;
+  font-family: var(--font-hologram);
+  font-size: 11px;
+  color: var(--primary-neon);
+  opacity: 0.7;
+  pointer-events: auto;
+  letter-spacing: 1px;
+  animation: hud-flicker 4s ease-in-out infinite;
+}
+
+@keyframes hud-flicker {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.9; }
+  92% { opacity: 0.65; }
+  94% { opacity: 0.8; }
+}
+.hud-widget.top-left-panel { top: 25px; left: 45px; }
+.hud-widget.top-right-panel { top: 25px; right: 45px; text-align: right; }
+.hud-widget.bottom-left-panel { bottom: 25px; left: 45px; }
+
+@keyframes hud-flicker {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.9; }
+  92% { opacity: 0.65; }
+  94% { opacity: 0.8; }
+}
+
+#Start, #Oval, #SiriWave {
+  transition: opacity 0.5s ease, transform 0.3s ease;
+}
+
+#VisualizerContainer::before {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.15), transparent 70%);
+  border-radius: 50%;
+  animation: core-pulse 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes core-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.3); opacity: 0.8; }
+}
+
+.typing-indicator {
+  display: inline-flex;
+  gap: 4px;
+  padding: 12px 18px;
+  border: 1px solid var(--border-glass);
+  border-radius: 0px 20px 20px 20px;
+  background: rgba(0, 170, 255, 0.08);
+}
+.typing-indicator span {
+  width: 6px;
+  height: 6px;
+  background: var(--primary-neon);
+  border-radius: 50%;
+  animation: typing-bounce 1.4s infinite ease-in-out;
+}
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing-bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-8px); opacity: 1; }
+}
+
+.msg-time {
+  font-size: 10px;
+  color: rgba(0, 240, 255, 0.4);
+  font-family: var(--font-hologram);
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .square { width: 200px; height: 200px; }
+  #canvasOne { width: 100% !important; height: 260px !important; }
+  #TextInput { width: 95%; max-width: 100%; }
+  .hud-widget { font-size: 9px; }
+  #WishMessage { font-size: 16px; }
+}
+
+/* --- Smooth Section Transitions --- */
+#Start, #Oval, #SiriWave {
+  transition: opacity 0.5s ease, transform 0.3s ease;
+}
+
+/* --- Visualizer Ring & Sphere styling --- */
+#VisualizerContainer {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+#VisualizerContainer::before {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.15), transparent 70%);
+  border-radius: 50%;
+  animation: core-pulse 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes core-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.3); opacity: 0.8; }
+}
+
+.square {
+  width: 320px;
+  height: 320px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square span {
+  position: absolute;
+  border-radius: 50%;
+  transition: all 0.5s ease;
+}
+
+.square span:nth-child(1) {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 1px dashed var(--primary-neon);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.15), inset 0 0 30px rgba(0, 240, 255, 0.15);
+  animation: rotate 12s linear infinite;
+}
+
+.square span:nth-child(2) {
+  width: 90%;
+  height: 90%;
+  border: 2px solid var(--accent-neon);
+  box-shadow: 0 0 25px rgba(0, 69, 255, 0.2);
+  border-radius: 40% 60% 65% 35%/40% 45% 55% 60%;
+  animation: rotate-reverse 8s linear infinite;
+}
+
+.square span:nth-child(3) {
+  width: 75%;
+  height: 75%;
+  border: 1px solid var(--primary-neon);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+  border-radius: 60% 40% 30% 70%/60% 30% 70% 40%;
+  animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes rotate-reverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* --- Redesigned Glassmorphism TextInput --- */
+#TextInput {
+  background: rgba(0, 12, 28, 0.7);
+  border: 1px solid var(--border-glass);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15), inset 0 0 10px rgba(0, 240, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px;
+  color: white;
+  padding: 8px 15px;
+  margin: 0 auto;
+  max-width: 600px;
+  width: 90%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+}
+
+#TextInput:focus-within {
+  border-color: var(--primary-neon);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.15);
+}
+
+.input-field {
+  background-color: transparent;
+  border: none;
+  flex-grow: 1;
+  outline: none;
+  color: #fff;
+  font-family: var(--font-hologram);
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.input-field::placeholder {
+  color: rgba(0, 240, 255, 0.4);
+}
+
+/* --- Glowing Sci-Fi Buttons --- */
+.glow-on-hover {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  outline: none;
+  color: var(--primary-neon);
+  background: rgba(0, 10, 20, 0.6);
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  margin-left: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+.glow-on-hover:hover {
+  color: #000;
+  border-color: var(--primary-neon);
+  background: var(--primary-neon);
+  box-shadow: 0 0 20px var(--primary-glow);
+  transform: translateY(-2px);
+}
+
+.glow-on-hover:active {
+  transform: translateY(0);
+}
+
+/* --- Holographic Chat Panel --- */
+#ChatPanel {
+  display: none;
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  background: var(--panel-glass);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.25), inset 0 0 15px rgba(0, 240, 255, 0.1);
+  height: 100%;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Reasoning / Analytics Terminal --- */
+#ThinkingConsole {
+  font-family: var(--font-hologram);
+  font-size: 12px;
+  max-height: 110px;
+  overflow-y: auto;
+  background: rgba(0, 15, 30, 0.6);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.1);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#ThinkingConsole::-webkit-scrollbar {
+  width: 4px;
+}
+
+#ThinkingConsole::-webkit-scrollbar-thumb {
+  background: var(--primary-neon);
+  border-radius: 2px;
+}
+
+/* --- Futuristic Chat Bubbles --- */
+#ChatHistory {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 15px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+#ChatHistory::-webkit-scrollbar {
+  width: 6px;
+}
+
+#ChatHistory::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#ChatHistory::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.2);
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+#ChatHistory::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-neon);
+}
+
+.receiver_message {
+  padding: 12px 18px;
+  border: 1px solid var(--border-glass);
+  border-radius: 0px 20px 20px 20px;
+  color: #c9efff;
+  background: rgba(0, 170, 255, 0.08);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 0 15px rgba(0, 170, 255, 0.05);
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.sender_message {
+  padding: 12px 18px;
+  border: 1px solid rgba(0, 69, 255, 0.3);
+  border-radius: 20px 20px 0px 20px;
+  color: #fff;
+  background: rgba(0, 69, 255, 0.25);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 0 15px rgba(0, 69, 255, 0.1);
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+/* --- Animated SVG Loader (Startup) --- */
+.svg-frame {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  filter: drop-shadow(0 0 15px var(--primary-neon));
+}
+
+/* --- Siri Wave visualizer --- */
+#SiriWave {
+  transition: all 0.5s ease;
+}
+
+#SiriWave .siri-message {
+  font-family: var(--font-hud);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+#WishMessage {
+  font-family: var(--font-hud);
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-shadow: 0 0 15px var(--primary-glow);
+  color: var(--primary-neon);
+}
+
+/* --- Typing Indicator --- */
+.typing-indicator {
+  display: inline-flex;
+  gap: 4px;
+  padding: 12px 18px;
+  border: 1px solid var(--border-glass);
+  border-radius: 0px 20px 20px 20px;
+  background: rgba(0, 170, 255, 0.08);
+}
+.typing-indicator span {
+  width: 6px;
+  height: 6px;
+  background: var(--primary-neon);
+  border-radius: 50%;
+  animation: typing-bounce 1.4s infinite ease-in-out;
+}
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing-bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-8px); opacity: 1; }
+}
+
+/* --- Message Timestamp --- */
+.msg-time {
+  font-size: 10px;
+  color: rgba(0, 240, 255, 0.4);
+  font-family: var(--font-hologram);
+  margin-top: 4px;
+}
+
+/* --- Responsive Fixes --- */
+@media (max-width: 768px) {
+  .square { width: 200px; height: 200px; }
+  #canvasOne { width: 100% !important; height: 260px !important; }
+  #TextInput { width: 95%; max-width: 100%; }
+  .hud-widget { font-size: 9px; }
+  #WishMessage { font-size: 16px; }
+}

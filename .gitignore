@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+/envjarvis 
+
+# J.A.R.V.I.S. specific ignores
+jarvis.db
+backend/auth/samples/
+backend/auth/trainer/trainer.yml
+backend/auth/users.json
+Desktop/Jarvis_Screenshot_*.png

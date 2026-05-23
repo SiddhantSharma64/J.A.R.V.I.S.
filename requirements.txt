@@ -1,0 +1,14 @@
+eel
+pyttsx3
+playsound==1.2.2
+SpeechRecognition
+pyaudio
+pvporcupine
+pyautogui
+pywhatkit
+pygame
+opencv-contrib-python
+numpy
+Pillow
+python-dotenv
+requests
